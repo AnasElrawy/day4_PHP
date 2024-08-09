@@ -46,7 +46,26 @@ else
 
 }
 $result=$stmt->fetchAll();
-$id=$db->lastInsertId();
+
+
+
+$sql2 = 'DELETE FROM skill WHERE userid=?' ;
+      $stmt2=$db->prepare($sql2);
+      $stmt2->execute([$_GET["id"]]);
+    
+   if (isset($_POST['skills'])) {
+
+
+
+        
+      foreach ($_POST['skills'] as $skill){
+      echo "add<br>";
+      $sql2 = 'INSERT INTO skill (userid,skill) VALUES (?,?)';
+      $stmt2=$db->prepare($sql2);
+      $stmt2->execute([$_GET["id"],$skill]);
+            
+      }
+   } 
 
 echo "it is updated";
 }

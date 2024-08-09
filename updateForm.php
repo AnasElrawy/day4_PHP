@@ -67,33 +67,33 @@ if ($_SERVER['HTTP_REFERER']=="http://localhost/php4/list.php" || $_SERVER['REQU
     <br><br>
 
     <?php
-// try {
+try {
 
-//     require_once("db/conne.php");
-
-
-//     $query2= "SELECT skill FROM skill where userid = ?";
-//     $stmt2=$db->prepare($query2);
-//     $stmt2->execute([$row["id"]]);
-//     $result2=$stmt2->fetchAll();                
-// } 
-// catch (PDOException $e) {
-//     echo 'Connection failed: ' . $e->getMessage();
-// }
+    require_once("db/conne.php");
 
 
-// var_dump ("result2");
+    $query2= "SELECT skill FROM skill where userid = ?";
+    $stmt2=$db->prepare($query2);
+    $stmt2->execute([$_GET["id"]]);
+    $result2=$stmt2->fetchAll(PDO::FETCH_COLUMN, 0);                
+} 
+catch (PDOException $e) {
+    echo 'Connection failed: ' . $e->getMessage();
+}
+
+
+
 
 ?>
 
 
     
     <label for="skills" > skills:  </label><br>
-    <input type="checkbox" id="PHP" value="PHP" name="skills[]">
+    <input type="checkbox" id="PHP" value="PHP" name="skills[]" <?php if (strlen(array_search('PHP', $result2))){echo "checked";}?> >
     <label for="PHP"> PHP</label><br>
-    <input type="checkbox" id="js" value="js" name="skills[]">
+    <input type="checkbox" id="js" value="js" name="skills[]" <?php if (strlen(array_search('js', $result2))){echo "checked";}?>>
     <label for="larval"> js</label><br>
-    <input type="checkbox" id="HTML" value="HTML" name="skills[]">
+    <input type="checkbox" id="HTML" value="HTML" name="skills[]" <?php if (strlen(array_search('HTML', $result2))){echo "checked";}?>>
     <label for= "html"> html</label>
     <br><br>
 
